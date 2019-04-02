@@ -15,16 +15,7 @@ public class NewsListModel {
     private int page_number;
     private int total_pages;
 
-    // TODO assign object inside mutable because it defaults to null
-    private MutableLiveData<ArrayList<NewsItemModel>> storiesMutable = new MutableLiveData<>();
-
-    public ArrayList<NewsItemModel> getStories() {
-        return stories;
-    }
-
-    public void setStories(ArrayList<NewsItemModel> stories) {
-        this.stories = stories;
-    }
+    private MutableLiveData<ArrayList<NewsItemModel>> storiesMutable = new MutableLiveData<>(); // don't initialize the Arraylist, else the observer will be called twice
 
     public int getPage_number() {
         return page_number;
@@ -56,13 +47,13 @@ public class NewsListModel {
             public void onResponse(Call<NewsListModel> call, Response<NewsListModel> response) {
                 page_number = response.body().page_number;
                 total_pages = response.body().total_pages;
-                ArrayList<NewsItemModel> allItems = storiesMutable.getValue();
-                if (allItems == null) {
+
+                if (storiesMutable.getValue() == null || page_number == 1) {
                     storiesMutable.setValue(response.body().stories);
                 } else {
-                    storiesMutable.getValue().remove(null); // remove the null (loading)
-                    allItems.addAll(response.body().stories);
-                    storiesMutable.setValue(allItems);
+                    storiesMutable.getValue().remove(null);
+                    storiesMutable.getValue().addAll(response.body().stories);
+                    storiesMutable.setValue(storiesMutable.getValue());
                 }
             }
 
@@ -73,6 +64,4 @@ public class NewsListModel {
             }
         });
     }
-
-
 }

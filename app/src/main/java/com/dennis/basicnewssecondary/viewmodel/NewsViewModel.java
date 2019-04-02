@@ -1,12 +1,6 @@
 package com.dennis.basicnewssecondary.viewmodel;
 
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
-import com.dennis.basicnewssecondary.R;
 import com.dennis.basicnewssecondary.adapters.lists.NewsAdapter;
-import com.dennis.basicnewssecondary.database.repositories.FavoriteRepository;
 import com.dennis.basicnewssecondary.models.NewsItemModel;
 import com.dennis.basicnewssecondary.models.NewsListModel;
 import com.dennis.basicnewssecondary.utilities.Common;
@@ -23,8 +17,8 @@ public class NewsViewModel extends ViewModel {
     private NewsAdapter newsAdapter;
     public ObservableBoolean refreshing;
 
-    public MutableLiveData<NewsItemModel> selectedClick;
-    public MutableLiveData<Integer> selectedLongClick;
+    private MutableLiveData<NewsItemModel> selectedClick;
+    private MutableLiveData<Integer> selectedLongClick;
 
     public void init() {
         newsListModel = new NewsListModel();
@@ -39,16 +33,9 @@ public class NewsViewModel extends ViewModel {
     }
 
     public void setDataInAdapter(ArrayList<NewsItemModel> newsItemModels) {
-        refreshing.set(false);
-
-        // TODO implement swipe refresh
-        // (swipe refresh) if page is 1, clear list first
-        /*
-        if (newsAdapter.getNewsItems() != null && newsListModel.getPage_number() == 1) {
-            newsAdapter.getNewsItems().clear();
+        if (refreshing.get()) {
+            refreshing.set(false);
         }
-        */
-
         newsAdapter.setNewsItems(newsItemModels);
         newsAdapter.notifyDataSetChanged();
     }
@@ -118,6 +105,11 @@ public class NewsViewModel extends ViewModel {
 
     public void setSelectedLongClick(MutableLiveData<Integer> selectedLongClick) {
         this.selectedLongClick = selectedLongClick;
+    }
+
+    public void onSwipeRefresh() {
+        refreshing.set(true);
+        fetchList(1);
     }
 
     public void onItemClick(int position) {
