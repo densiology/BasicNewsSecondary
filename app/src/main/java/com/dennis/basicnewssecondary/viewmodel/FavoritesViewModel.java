@@ -19,12 +19,14 @@ import androidx.lifecycle.ViewModel;
 public class FavoritesViewModel extends ViewModel {
 
     private FavoritesAdapter favoritesAdapter;
+    private MutableLiveData<List<Favorite>> favoritesMutable;
 
     private MutableLiveData<Favorite> selectedClick;
     private MutableLiveData<Integer> selectedLongClick;
 
-    public void init(Context context) {
+    public void init() {
         favoritesAdapter = new FavoritesAdapter(this);
+        favoritesMutable = new MutableLiveData<>();
         selectedClick = new MutableLiveData<>();
         selectedLongClick = new MutableLiveData<>();
     }
@@ -62,6 +64,14 @@ public class FavoritesViewModel extends ViewModel {
 
     public void setSelectedClick(MutableLiveData<Favorite> selectedClick) {
         this.selectedClick = selectedClick;
+    }
+
+    public MutableLiveData<List<Favorite>> getFavoritesMutable() {
+        return favoritesMutable;
+    }
+
+    public void setFavoritesMutable(MutableLiveData<List<Favorite>> favoritesMutable) {
+        this.favoritesMutable = favoritesMutable;
     }
 
     public MutableLiveData<Integer> getSelectedLongClick() {

@@ -13,9 +13,11 @@ import com.dennis.basicnewssecondary.database.repositories.FavoriteRepository;
 import com.dennis.basicnewssecondary.database.tables.Favorite;
 import com.dennis.basicnewssecondary.databinding.FragmentNewsListBinding;
 import com.dennis.basicnewssecondary.models.NewsItemModel;
+import com.dennis.basicnewssecondary.viewmodel.FavoritesViewModel;
 import com.dennis.basicnewssecondary.viewmodel.NewsViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
@@ -27,6 +29,7 @@ import androidx.lifecycle.ViewModelProviders;
 public class NewsFragment extends Fragment {
 
     private NewsViewModel viewModel;
+    private FavoritesViewModel faveViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class NewsFragment extends Fragment {
 
     private void initialize(final FragmentNewsListBinding binding, Bundle savedInstanceState) {
         viewModel = ViewModelProviders.of(this).get(NewsViewModel.class);
+        faveViewModel = ViewModelProviders.of(getActivity()).get(FavoritesViewModel.class);
         if (savedInstanceState == null) {
             viewModel.init();
         }
@@ -99,13 +103,24 @@ public class NewsFragment extends Fragment {
                 if (favorite != null) {
                     Toast.makeText(getContext(), getString(R.string.toast_favorite_exists), Toast.LENGTH_LONG).show();
                 } else {
-                    FavoriteRepository favoriteRepository2 = new FavoriteRepository(getContext()); // to prevent it from calling twice
-                    if (favoriteRepository2.saveFavorite(item)) {
+                    // new instance to prevent it from being called twice
+                    if (new FavoriteRepository(getContext()).saveFavorite(item)) {
+                        refreshFavorites();
                         Toast.makeText(getContext(), getString(R.string.toast_save_article), Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getContext(), getString(R.string.toast_save_article_fail), Toast.LENGTH_LONG).show();
                     }
                 }
+            }
+        });
+    }
+
+    private void refreshFavorites() {
+        FavoriteRepository favoriteRepository = new FavoriteRepository(getContext());
+        favoriteRepository.getAllFavorites().observe(this, new Observer<List<Favorite>>() {
+            @Override
+            public void onChanged(List<Favorite> favorites) {
+                faveViewModel.getFavoritesMutable().setValue(favorites);
             }
         });
     }
