@@ -3,8 +3,6 @@ package com.dennis.basicnewssecondary.customviews;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,15 +16,15 @@ public class LazyRecyclerView extends RecyclerView {
     private LinearLayoutManager layoutManager;
     private LazyLoadListener listener;
 
-    public LazyRecyclerView(@NonNull Context context) {
+    public LazyRecyclerView(Context context) {
         super(context);
     }
 
-    public LazyRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public LazyRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public LazyRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public LazyRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

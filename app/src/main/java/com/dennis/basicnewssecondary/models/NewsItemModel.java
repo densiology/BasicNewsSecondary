@@ -65,40 +65,20 @@ public class NewsItemModel implements Parcelable {
         return main;
     }
 
-    public void setMain(String main) {
-        this.main = main;
-    }
-
     public String getTeaser() {
         return teaser;
-    }
-
-    public void setTeaser(String teaser) {
-        this.teaser = teaser;
     }
 
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getBase_url() {
         return base_url;
     }
 
-    public void setBase_url(String base_url) {
-        this.base_url = base_url;
-    }
-
     public String getBase_filename() {
         return base_filename;
-    }
-
-    public void setBase_filename(String base_filename) {
-        this.base_filename = base_filename;
     }
 
     @Override

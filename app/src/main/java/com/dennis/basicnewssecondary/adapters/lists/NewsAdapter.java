@@ -13,7 +13,6 @@ import com.dennis.basicnewssecondary.viewmodel.NewsViewModel;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,10 +34,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return newsItems.get(position) == null ? TYPE_LOADING : TYPE_ITEM;
     }
 
-    // TODO remove all non-nulls and provide 'if checkings if necessary
-    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM) {
             ItemNewsBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_news, parent, false);
             return new NewsViewHolder(binding);
@@ -49,7 +46,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NewsViewHolder) {
             ((NewsViewHolder) holder).bind(viewModel, position);
         }
@@ -72,7 +69,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.newsItems = newsItems;
     }
 
-    // TODO experiment with ViewDataBinding instead of ItemNewsBinding
     class NewsViewHolder extends RecyclerView.ViewHolder {
         final ItemNewsBinding binding;
         NewsViewHolder(ItemNewsBinding binding) {

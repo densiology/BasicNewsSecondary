@@ -11,7 +11,6 @@ import com.dennis.basicnewssecondary.viewmodel.FavoritesViewModel;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,15 +31,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         this.favorites = favorites;
     }
 
-    @NonNull
     @Override
-    public FavoritesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavoritesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemFavoritesBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_favorites, parent, false);
         return new FavoritesViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavoritesViewHolder holder, int position) {
+    public void onBindViewHolder(FavoritesViewHolder holder, int position) {
         holder.bind(viewModel, position);
     }
 
