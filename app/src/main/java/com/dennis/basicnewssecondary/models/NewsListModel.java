@@ -21,24 +21,12 @@ public class NewsListModel {
         return page_number;
     }
 
-    public void setPage_number(int page_number) {
-        this.page_number = page_number;
-    }
-
     public int getTotal_pages() {
         return total_pages;
     }
 
-    public void setTotal_pages(int total_pages) {
-        this.total_pages = total_pages;
-    }
-
     public MutableLiveData<ArrayList<NewsItemModel>> getStoriesMutable() {
         return storiesMutable;
-    }
-
-    public void setStoriesMutable(MutableLiveData<ArrayList<NewsItemModel>> storiesMutable) {
-        this.storiesMutable = storiesMutable;
     }
 
     public void fetchList(int page) {

@@ -19,7 +19,6 @@ import com.dennis.basicnewssecondary.viewmodel.NewsViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -32,7 +31,7 @@ public class NewsFragment extends Fragment {
     private FavoritesViewModel faveViewModel;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentNewsListBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_news_list, container, false);
         initialize(binding, savedInstanceState);
         return binding.getRoot();
@@ -52,7 +51,6 @@ public class NewsFragment extends Fragment {
         viewModel.getStoriesMutable().observe(this, new Observer<ArrayList<NewsItemModel>>() {
             @Override
             public void onChanged(ArrayList<NewsItemModel> newsItemModels) {
-                //TODO get this out of here
                 binding.recyclerView.setAfterLazyLoad(viewModel.getPageNumber(), viewModel.getTotalPages());
                 viewModel.setDataInAdapter(newsItemModels);
             }

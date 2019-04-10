@@ -18,7 +18,6 @@ import com.dennis.basicnewssecondary.viewmodel.FavoritesViewModel;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -30,7 +29,7 @@ public class FavoritesFragment extends Fragment {
     private FavoritesViewModel viewModel;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentFavoritesListBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorites_list, container, false);
         initialize(binding, savedInstanceState);
         return binding.getRoot();
