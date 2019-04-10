@@ -70,6 +70,13 @@ public class NewsFragment extends Fragment {
                 onLongClick(view, integer);
             }
         });
+
+        viewModel.getFetchFail().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                showFetchFailError(integer);
+            }
+        });
     }
 
     private void onClick(NewsItemModel newsItemModel) {
@@ -89,6 +96,13 @@ public class NewsFragment extends Fragment {
             }
         });
         popupMenu.show();
+    }
+
+    private void showFetchFailError(int strResource) {
+        if (viewModel.refreshing.get()) {
+            viewModel.refreshing.set(false);
+        }
+        Toast.makeText(getContext(), getString(strResource), Toast.LENGTH_LONG).show();
     }
 
     private void saveArticle(int position) {

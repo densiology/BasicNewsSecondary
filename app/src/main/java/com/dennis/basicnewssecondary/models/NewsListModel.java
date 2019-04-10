@@ -1,7 +1,9 @@
 package com.dennis.basicnewssecondary.models;
 
+import com.dennis.basicnewssecondary.R;
 import com.dennis.basicnewssecondary.network.clients.NewsClient;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import androidx.lifecycle.MutableLiveData;
@@ -16,6 +18,7 @@ public class NewsListModel {
     private int total_pages;
 
     private MutableLiveData<ArrayList<NewsItemModel>> storiesMutable = new MutableLiveData<>(); // don't initialize the Arraylist, else the observer will be called twice
+    private MutableLiveData<Integer> fetchFail = new MutableLiveData<>();
 
     public int getPage_number() {
         return page_number;
@@ -27,6 +30,10 @@ public class NewsListModel {
 
     public MutableLiveData<ArrayList<NewsItemModel>> getStoriesMutable() {
         return storiesMutable;
+    }
+
+    public MutableLiveData<Integer> getFetchFail() {
+        return fetchFail;
     }
 
     public void fetchList(int page) {
@@ -47,8 +54,11 @@ public class NewsListModel {
 
             @Override
             public void onFailure(Call<NewsListModel> call, Throwable t) {
-                // TODO fail responses
-                t.printStackTrace();
+                if (t instanceof IOException) {
+                    fetchFail.setValue(R.string.toast_error_no_connection);
+                } else {
+                    fetchFail.setValue(R.string.toast_error);
+                }
             }
         });
     }

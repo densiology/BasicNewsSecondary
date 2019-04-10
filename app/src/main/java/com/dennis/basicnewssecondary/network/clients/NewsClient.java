@@ -12,13 +12,7 @@ public class NewsClient {
 
     public static NewsAPI getNewsAPI() {
         if (newsAPI == null) {
-/*
-            Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(
-                            NewsListModel.class,
-                            new JsonNewsListModelDeserializer())
-                    .create();
-*/
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(Common.LINK_NEWS)
                     .addConverterFactory(GsonConverterFactory.create())
@@ -27,25 +21,5 @@ public class NewsClient {
         }
         return newsAPI;
     }
-
-/*
-    private Retrofit retrofit;
-    private Object service;
-
-    public NewsClient() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Common.LINK_NEWS)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getService(Class<T> serviceClass) {
-        if (service == null || !serviceClass.isInstance(service)) {
-            service = retrofit.create(serviceClass);
-        }
-        return (T) service;
-    }
-    */
 
 }

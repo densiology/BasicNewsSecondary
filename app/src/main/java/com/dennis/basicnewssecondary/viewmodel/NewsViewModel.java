@@ -8,6 +8,7 @@ import com.dennis.basicnewssecondary.utilities.Common;
 import java.util.ArrayList;
 
 import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableInt;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -44,8 +45,8 @@ public class NewsViewModel extends ViewModel {
         return newsListModel.getStoriesMutable();
     }
 
-    public String getId(int index) {
-        return newsListModel.getStoriesMutable().getValue().get(index).getId();
+    public MutableLiveData<Integer> getFetchFail() {
+        return newsListModel.getFetchFail();
     }
 
     public String getImageUrl(int index) {
@@ -75,10 +76,6 @@ public class NewsViewModel extends ViewModel {
         return newsListModel;
     }
 
-    public void setNewsListModel(NewsListModel newsListModel) {
-        this.newsListModel = newsListModel;
-    }
-
     public NewsAdapter getNewsAdapter() {
         return newsAdapter;
     }
@@ -95,16 +92,8 @@ public class NewsViewModel extends ViewModel {
         return selectedClick;
     }
 
-    public void setSelectedClick(MutableLiveData<NewsItemModel> selectedClick) {
-        this.selectedClick = selectedClick;
-    }
-
     public MutableLiveData<Integer> getSelectedLongClick() {
         return selectedLongClick;
-    }
-
-    public void setSelectedLongClick(MutableLiveData<Integer> selectedLongClick) {
-        this.selectedLongClick = selectedLongClick;
     }
 
     public void onSwipeRefresh() {
